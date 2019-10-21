@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardDAO">	<!-- 이름정해서 넣어줌 -->
+	<!--	너무불편하다 
+	<resultMap type="board" id="boardMap">직접???가능
+		<id column="seq" property="seq"/>		column 대소문자 관계없음
+		<result column="TITLE" property="title"/>
+		<result column="WRITER" property="writer"/>
+		<result column="CONTENT" property="content"/>
+		<result column="REGDATE" property="regDate"/>
+		<result column="CNT" property="cnt"/>
+		<result column="UPLOAD_FILENAME" property="uploadFilename"/>
+	</resultMap>
+	 -->
+	 
+	<insert id="insertBoard" parameterType="board">	<!-- id sql구문 구분용 -->
+		<selectKey keyProperty="seq" resultType="int" order="BEFORE">  <!-- seq에담는다 타입은 int -->
+			select max(seq)+1 from board
+		</selectKey>
+		insert into board(seq, title, writer, content) 
+		values( #{seq}, #{title} ,#{writer} ,#{content} )
+		<!-- values( (select max(seq)+1 from board), #{title} ,#{writer} ,#{content} ) -->
+	</insert>
+	
+	<!-- 단건조회 -->
+	<!-- <select id="getBoard" parameterType="board" resultType="board">
+		select * from board where seq = #{seq}
+	</select> -->
+	<!-- 
+	<select id="getBoard" parameterType="board" resultMap="boardMap">
+		select * from board where seq = #{seq}
+	</select>
+	 -->
+	<select id="getBoard" parameterType="board" resultType="board">
+		select 	SEQ					as		"seq",
+				TITLE				as		"title",
+				WRITER				as		"writer",
+				CONTENT				as		"content",
+				REGDATE				as		"regDate",
+				CNT					as		"cnt",
+				UPLOAD_FILENAME		as		"uploadFilename"
+		from board where seq = #{seq}
+	</select>
+	 
+	 
+	 
+	 
+	<!-- 전체조회 -->
+	<select id="getBoardList" resultType="board">
+		select * from board order by seq desc
+	</select>
+	
+	
+	<select id="getBoardMap" resultType="map">	<!-- java.util.map alias가 map으로 내장됨 -->
+		select 	SEQ					as		"seq",
+				TITLE				as		"title",
+				WRITER				as		"writer",
+				CONTENT				as		"content",
+				REGDATE				as		"regDate",
+				CNT					as		"cnt",
+				UPLOAD_FILENAME		as		"uploadFilename"
+		FROM board
+
+<![CDATA[ 
+		WHERE 	1=1 		
+]]> <!--  WHERE SEQ < 3 쓰면 안됨 일반문자라고 알려준다 P.500-->
+		
+	
+		<if test="title != null and title != '' ">
+			AND TITLE LIKE '%' || #{title} || '%'
+		</if>
+		
+	<choose>	
+		<when test="orderby != null and orderby != '' ">	<!--  '' 체크해줘야됨 -->
+			ORDER BY ${orderby} DESC
+		</when>
+		<otherwise>
+			ORDER BY SEQ DESC
+		</otherwise>
+	</choose>
+		<!-- ORDER BY ${orderby} DESC	# 할때는 '값'으로 들어감(문자나 date타입이면 ''자동으로 붙인다) $하면 값 만들어감 -->
+	</select>
+	
+	<delete id="deleteBoardList" parameterType="board">
+		delete board
+		where seq in 
+		<foreach item="item" collection="seqList" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>
