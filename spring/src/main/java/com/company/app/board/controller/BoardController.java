@@ -14,6 +14,14 @@ public class BoardController {
 	
 	@Autowired BoardService boardService;
 	
+	//ajax테스트
+	@RequestMapping("/boardClient")
+	public String boardClient() {
+		return "board/boardClient";
+	}
+	
+	
+	
 	//컨트롤러 리턴값 String 으로 넘어가야됨
 	//단건조회
 	@RequestMapping("/getBoard")
@@ -39,7 +47,7 @@ public class BoardController {
 	@RequestMapping("/insertBoard")
 	public String insertBoard(BoardVO vo) {
 		boardService.insertBoard(vo);
-		System.out.println(vo.getSeq()+" 번 글이 등록되었습니다.");
+		System.out.println(vo.getSeq()+ vo.getMsg() +" 번 글이 등록되었습니다.");
 		return "redirect:/getBoardMap";
 	}
 	

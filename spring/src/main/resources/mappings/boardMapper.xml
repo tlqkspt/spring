@@ -24,6 +24,17 @@
 		<!-- values( (select max(seq)+1 from board), #{title} ,#{writer} ,#{content} ) -->
 	</insert>
 	
+	<insert id="insertBoardProc" statementType="CALLABLE" parameterType="board">
+		{call board_ins_proc( #{title},
+							  #{writer},
+							  #{content},
+							  #{seq, mode=OUT, jdbcType=NUMERIC, javaType=java.lang.Integer},
+							  #{msg, mode=OUT, jdbcType=VARCHAR, javaType=string}  )  }	<!--call 프로시저명(?,?,?) ???순서대로 | 프로시저명 대소문자구분 x -->
+		
+	</insert>
+	
+	
+	
 	<!-- 단건조회 -->
 	<!-- <select id="getBoard" parameterType="board" resultType="board">
 		select * from board where seq = #{seq}
@@ -63,14 +74,16 @@
 				UPLOAD_FILENAME		as		"uploadFilename"
 		FROM board
 
+<!-- 
 <![CDATA[ 
-		WHERE 	1=1 		
-]]> <!--  WHERE SEQ < 3 쓰면 안됨 일반문자라고 알려준다 P.500-->
-		
-	
+		WHERE 	1=1 
+]]>  WHERE SEQ < 3 쓰면 안됨 일반문자라고 알려준다 P.500
+ <where>로 바뀜-->
+<where>
 		<if test="title != null and title != '' ">
 			AND TITLE LIKE '%' || #{title} || '%'
 		</if>
+</where>
 		
 	<choose>	
 		<when test="orderby != null and orderby != '' ">	<!--  '' 체크해줘야됨 -->
@@ -81,6 +94,7 @@
 		</otherwise>
 	</choose>
 		<!-- ORDER BY ${orderby} DESC	# 할때는 '값'으로 들어감(문자나 date타입이면 ''자동으로 붙인다) $하면 값 만들어감 -->
+
 	</select>
 	
 	<delete id="deleteBoardList" parameterType="board">
