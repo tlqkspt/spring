@@ -15,12 +15,26 @@
 	</resultMap>
 	 -->
 	 
-	<insert id="insertBoard" parameterType="board">	<!-- id sql구문 구분용 -->
+	<insert id="insertBoard" parameterType="board" >	<!-- id sql구문 구분용 -->
 		<selectKey keyProperty="seq" resultType="int" order="BEFORE">  <!-- seq에담는다 타입은 int -->
 			select max(seq)+1 from board
 		</selectKey>
-		insert into board(seq, title, writer, content) 
-		values( #{seq}, #{title} ,#{writer} ,#{content} )
+		insert into board(seq
+							, title
+							, writer
+							, content
+						<if test="uploadFilename != null and uploadFilename != '' ">
+							, UPLOAD_FILENAME
+						</if>
+						) 
+		values( #{seq}
+						, #{title}
+						, #{writer}
+						, #{content}
+					<if test="uploadFilename != null and uploadFilename != '' ">
+						, #{uploadFilename}		<!-- vo필드에 null있으면 비어버림 / 구문오류발생-->
+					</if>
+	 				)
 		<!-- values( (select max(seq)+1 from board), #{title} ,#{writer} ,#{content} ) -->
 	</insert>
 	

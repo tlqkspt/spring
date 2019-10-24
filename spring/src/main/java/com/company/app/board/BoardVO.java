@@ -2,6 +2,8 @@ package com.company.app.board;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,4 +23,5 @@ public class BoardVO {
 	private String orderby;
 	private int[] seqList;
 	private String msg;
+//	private MultipartFile uploadFile;
 }

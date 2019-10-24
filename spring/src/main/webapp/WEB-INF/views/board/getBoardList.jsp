@@ -21,7 +21,9 @@
 	
 	<form action="deleteBoardList">
 		<c:forEach items="${boardList }" var="board">
-			<div><input name="seqList" type="checkbox" value="${board.seq}"/>${board.seq}	${board.title} ${board.regDate}</div>
+			<div><input name="seqList" type="checkbox" value="${board.seq}"/>${board.seq}	
+			<a href="getBoard?seq=${board.seq}"> ${board.title} </a> 
+			${board.regDate} ${board.uploadFilename} </div>
 		</c:forEach>
 		<button>삭제</button>
 	</form>
