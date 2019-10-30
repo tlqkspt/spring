@@ -15,4 +15,10 @@ public interface UserService {
 	public int updateUser(UserVO vo);
 	//삭제
 	public int deleteUser(UserVO vo);
+	
+	//부서별인원
+	public List<Map<String, Object>> getEmpCnt();
+	
+	//로그인 체크
+	public UserVO login(UserVO vo);
 }

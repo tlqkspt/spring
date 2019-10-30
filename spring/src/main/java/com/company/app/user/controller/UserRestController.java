@@ -61,14 +61,19 @@ public class UserRestController {
 	
 	//수정
 	@RequestMapping(value="/users", method=RequestMethod.PUT
-					,consumes="application/json")
+					,consumes="application/json")	//consumes 파라미터 받을거있을때
 	public UserVO updateUser(@RequestBody UserVO vo, Model model) {
 		userService.updateUser(vo);
 		return vo;
 	}
 	
 	
-	
+	//부서별인원(차트)
+	@RequestMapping("getEmpCnt")	//매서드 기본은 get //value 하나만있으면 value 생략가능	//
+	// @ResponseBody	//그냥 컨트롤러 일때 써줘야함	RestController 는 안써줘도된다
+	public List<Map<String, Object>> getEmpCnt() {
+		return userService.getEmpCnt();
+	}
 	
 	
 }

@@ -24,4 +24,5 @@ public class BoardVO {
 	private int[] seqList;
 	private String msg;
 //	private MultipartFile uploadFile;
+	private String boardType;
 }

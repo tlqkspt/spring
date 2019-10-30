@@ -8,8 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<h3>${sessionScope.user.name }
+		<a href="logout">로그아웃</a>
+	</h3>
+
 	<form>
 		제목<input name="title">
+		게시판구분 <select name="boardType">
+					<c:forEach items="${boardType }"  var="t">
+						<option value="${t.value }">${t.key}
+					</c:forEach>
+				</select>
 	 	정렬<select name="orderby">
 	 			<option value="">선택
 				<option value="title">제목

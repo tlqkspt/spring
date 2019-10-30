@@ -49,5 +49,13 @@
 		delete from users
 		where id = #{id}
 	</delete>
+	
+	<select id="getEmpCnt" resultType="map">
+		select d.department_name	"departmentName"
+			 , count(*)				"cnt"
+		from hr.employees e join hr.departments d
+		on ( e.department_id = d.department_id) 
+		group by d.department_name			
+	</select>
 
 </mapper>

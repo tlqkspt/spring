@@ -43,4 +43,9 @@ public class UserDAO {
 		System.out.println("mybatis 사용자 삭제");
 		return mybatis.delete("UserDAO.deleteUser", dto);
 	}
+	
+	//부서별 인원수
+	public List<Map<String, Object>> getEmpCnt(){
+		return mybatis.selectList("UserDAO.getEmpCnt");
+	}
 }

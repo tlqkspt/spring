@@ -8,7 +8,7 @@
 		class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<param name="ConversionPattern" value="%-5p: %c.%M %L - %m%n" />	<!-- 로그출력패턴 -->
 		</layout>
 	</appender>
 

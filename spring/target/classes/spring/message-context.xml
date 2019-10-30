@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">	<!-- 하나면 basename 여러개면 basenames -->
+			<list>
+				<value>message.messageSource</value> <!-- _ko.properties 생략가능 알아서 빼고가져옴 -->
+			</list>
+		</property>
+	</bean>
+		<!--  로케일 리졸버  -->
+	<bean id="localeResolver" 
+	class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+	</bean>
+	
+	<!-- locale change interceptor  -->
+<!-- appServlet servlet-context 로 이동
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang"/>
+		</bean>	
+	</mvc:interceptors>
+ -->
+</beans>

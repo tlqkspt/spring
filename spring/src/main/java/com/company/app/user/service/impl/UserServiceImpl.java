@@ -35,5 +35,20 @@ public class UserServiceImpl implements UserService{
 	public int deleteUser(UserVO dto) {
 		return userDAO.deleteUser(dto);
 	}
+	@Override
+	public List<Map<String, Object>> getEmpCnt() {
+		return userDAO.getEmpCnt();
+	}
+	@Override
+	public UserVO login(UserVO vo) {
+		//id로 조회 하고
+		UserVO user = userDAO.getUser(vo);
+		if(user != null) {
+			if(user.getPassword().equals(vo.getPassword())) {
+				return user;
+			}
+		}
+		return null;
+	}
 
 }
