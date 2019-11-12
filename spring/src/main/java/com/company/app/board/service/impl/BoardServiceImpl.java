@@ -12,7 +12,8 @@ import com.company.app.board.service.BoardService;
 @Service
 public class BoardServiceImpl implements BoardService{
 
-	@Autowired BoardDAOMybatis boardDAO;
+	//@Autowired BoardDAOMybatis boardDAO;
+	@Autowired BoardDAOJpa boardDAO;
 	
 	@Override
 	public void insertBoard(BoardVO vo) {

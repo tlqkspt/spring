@@ -28,6 +28,7 @@
 	webSocket.onmessage = function(event) {
 		onMessage(event)
 	};
+	
 	function onMessage(event) {
 		var result = JSON.parse(event.data);	/////////////!!!!!
 		//textarea.value += result.id+ " : " + result.msg + "\n";

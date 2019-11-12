@@ -82,7 +82,7 @@ public class BoardController {
 //		model.addAttribute("boardList", boardService.getBoardMap(vo));
 //		return "board/getBoardList";
 //	}
-	@RequestMapping("/getBoardMap")
+	@RequestMapping("/getBoardList")
 	public ModelAndView getBoardMap(BoardVO vo
 			, @RequestParam(required = false, value = "title", defaultValue = "board") String titleValue) {	//모델앤뷰 사용
 		
@@ -91,7 +91,8 @@ public class BoardController {
 		
 		ModelAndView mv = new ModelAndView();
 		
-		mv.addObject("boardList", boardService.getBoardMap(vo));
+//		mv.addObject("boardList", boardService.getBoardMap(vo));
+		mv.addObject("boardList", boardService.getBoardList(vo));
 		mv.setViewName("board/getBoardList");
 		return mv;
 	}
